@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Content {
+model Secret {
   id        Int      @id @default(autoincrement())
   body      String
   url       String   @unique

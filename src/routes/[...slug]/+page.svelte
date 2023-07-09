@@ -19,7 +19,7 @@
 				will not be able to see this again.
 			</p>
 			<div class="bg-gray-100 p-4 rounded-md">
-				<p>{data.secret.body}</p>
+				<p bind:innerText={data.secret.body} contenteditable="false" />
 			</div>
 			<button
 				class="bg-blue-600 py-4 px-6 rounded-md text-white hover:bg-blue-700 mt-2 mx-auto block"

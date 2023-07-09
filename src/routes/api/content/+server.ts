@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 export const POST = (async ({ url, request }) => {
   const body = await request.json();
 
-  const created = await prisma.content.create({
+  const created = await prisma.secret.create({
     data: {
       body: body.content,
       url: uuid(),

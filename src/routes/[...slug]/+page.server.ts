@@ -5,7 +5,7 @@ import prisma from "$lib/prisma";
 export const load = (async ({ params }) => {
   const { slug } = params;
 
-  const foundSecret = await prisma.content.findFirst({
+  const foundSecret = await prisma.secret.findFirst({
     where: {
       url: {
         equals: slug
@@ -14,7 +14,7 @@ export const load = (async ({ params }) => {
   });
 
   if (foundSecret) {
-    await prisma.content.update({
+    await prisma.secret.update({
       where: {
         id: foundSecret.id
       },
