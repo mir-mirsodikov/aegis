@@ -21,6 +21,12 @@
 	};
 </script>
 
+<head>
+	<title>Aegis - Home</title>
+	<meta name="description" content="Aegis is a secure way to share secrets. Create a secret.">
+	<link rel="icon" href="/shield.png" />
+</head>
+
 <main class="flex justify-center">
 	<div class="bg-white p-4 lg:w-1/2 md:w-3/4 w-full rounded-lg shadow-xl m-4">
 		{#if generatedUrl !== ''}

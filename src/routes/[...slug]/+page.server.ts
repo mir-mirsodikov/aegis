@@ -47,8 +47,6 @@ export const load = (async ({ params }) => {
   let decrypted = decipher.update(foundSecret.body, 'hex', 'utf-8');
   decrypted += decipher.final('utf-8');
 
-  console.log(decrypted);
-
   return {
     secret: {
       ...foundSecret,

@@ -7,8 +7,6 @@ import { SECRET_KEY, SECRET_IV } from '$env/static/private';
 export const POST = (async ({ url, request }) => {
   const body = await request.json();
 
-  console.log(SECRET_KEY, SECRET_IV);
-
   const cipher = crypto.createCipheriv(
     'aes-256-cbc',
     SECRET_KEY,

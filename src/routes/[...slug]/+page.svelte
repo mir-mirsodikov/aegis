@@ -11,6 +11,11 @@
 	};
 </script>
 
+<head>
+	<title>Aegis - View Secret</title>
+	<meta name="description" content="Aegis is a secure way to share secrets. View a secret.">
+</head>
+
 <main class="flex justify-center mt-36">
 	<div class="bg-white p-4 md:w-5/6 lg:w-3/4 w-full rounded-lg shadow-xl m-4 md:m-0">
 		<h2 class="text-center text-3xl font-semibold mb-4">Retrieved Secret</h2>
