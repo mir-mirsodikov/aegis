@@ -14,7 +14,5 @@ export const POST = (async ({ url, request }) => {
 
   const newUrl = `${url.origin}/${created.url}`;
 
-  console.log(created);
-
   return new Response(JSON.stringify({ url: newUrl }));
 }) satisfies RequestHandler;
