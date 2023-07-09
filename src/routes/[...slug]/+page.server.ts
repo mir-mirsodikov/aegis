@@ -3,7 +3,8 @@ import prisma from "$lib/prisma";
 import crypto from "crypto";
 import { SECRET_KEY, SECRET_IV } from '$env/static/private';
 
-export const load = (async ({ params }) => {
+export const load = (async ({ params, url }) => {
+  console.log(url.origin);
   const { slug } = params;
 
   const foundSecret = await prisma.secret.findFirst({
