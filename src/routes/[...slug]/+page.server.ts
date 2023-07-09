@@ -1,6 +1,7 @@
-import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import prisma from "$lib/prisma";
+import crypto from "crypto";
+import { SECRET_KEY, SECRET_IV } from '$env/static/private';
 
 export const load = (async ({ params }) => {
   const { slug } = params;
@@ -13,26 +14,45 @@ export const load = (async ({ params }) => {
     }
   });
 
-  if (foundSecret) {
-    await prisma.secret.update({
-      where: {
-        id: foundSecret.id
-      },
-      data: {
-        viewed: true,
-      }
-    });
+  // eslint-disable-next-line
+  const error = 'The requested secret may have expired or never existed. Make sure to double check the URL. Contact the sender for another link, if necessary.';
 
-    if (foundSecret.viewed) {
-      return {
-        error: 'This secret has expired.'
-      };
-    }
-
+  if (!foundSecret) {
     return {
-      secret: foundSecret
+      error,
     };
   }
 
-  throw error(404, 'Page not found');
+  // invalidate the secret after 15 minutes
+  const isExpiredSecret = Date.now() - foundSecret.createdAt.getTime() > 15 * 60 * 1000;
+
+  if (isExpiredSecret) {
+    return {
+      error,
+    };
+  }
+
+  await prisma.secret.delete({
+    where: {
+      id: foundSecret.id
+    }
+  });
+
+  const decipher = crypto.createDecipheriv(
+    'aes-256-cbc',
+    SECRET_KEY,
+    SECRET_IV,
+  );
+
+  let decrypted = decipher.update(foundSecret.body, 'hex', 'utf-8');
+  decrypted += decipher.final('utf-8');
+
+  console.log(decrypted);
+
+  return {
+    secret: {
+      ...foundSecret,
+      body: decrypted,
+    }
+  };
 }) satisfies PageServerLoad;

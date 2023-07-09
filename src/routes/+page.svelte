@@ -1,9 +1,11 @@
 <script lang="ts">
+	import Button from '../components/button.svelte';
+
 	let content: string = '';
 	let generatedUrl: string = '';
 
 	const create = async () => {
-		const res = await fetch('/api/content', {
+		const res = await fetch('/api/secret', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ content })
@@ -20,9 +22,9 @@
 </script>
 
 <main class="flex justify-center">
-	{#if generatedUrl !== ''}
-		<div class="bg-white p-4 lg:w-1/2 md:w-3/4 w-full rounded-lg shadow-xl m-4">
-			<p>Share your secret with this link:</p>
+	<div class="bg-white p-4 lg:w-1/2 md:w-3/4 w-full rounded-lg shadow-xl m-4">
+		{#if generatedUrl !== ''}
+			<p>Share your secret using the following link:</p>
 			<div class="flex items-center justify-center my-4">
 				<div class="bg-gray-100 px-4 rounded-md mr-2">
 					<p class="text-sm dark:text-white text-center my-4 text-gray-700">
@@ -46,9 +48,10 @@
 					</svg>
 				</button>
 			</div>
-		</div>
-	{:else}
-		<div class="bg-white p-4 lg:w-1/2 md:w-3/4 w-full rounded-lg shadow-xl m-4">
+			<div class="flex justify-center mt-8">
+				<Button type="secondary" onClick={() => location.reload()}>Create another secret</Button>
+			</div>
+		{:else}
 			<h1 class="text-center py-4 text-2xl font-semibold">Secret Creation</h1>
 			<form action="">
 				<label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -61,13 +64,10 @@
 					placeholder="Write your secret here..."
 					bind:value={content}
 				/>
-				<div class="flex flex-row-reverse">
-					<button
-						class="px-6 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg mt-4 text-white"
-						on:click={create}>Create</button
-					>
+				<div class="flex flex-row-reverse mt-4">
+					<Button onClick={create}>Create</Button>
 				</div>
 			</form>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </main>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '../../components/button.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -21,13 +22,11 @@
 			<div class="bg-gray-100 p-4 rounded-md">
 				<p bind:innerText={data.secret.body} contenteditable="false" />
 			</div>
-			<button
-				class="bg-blue-600 py-4 px-6 rounded-md text-white hover:bg-blue-700 mt-2 mx-auto block"
-				on:click={copy}>Copy</button
-			>
+			<div class="flex justify-center mt-4">
+				<Button type="primary" on:click={copy}>Copy</Button>
+			</div>
 		{:else}
 			<p class="text-center">{data.error}</p>
-
 			<div class="flex justify-center space-x-2">
 				<a
 					href="/"
