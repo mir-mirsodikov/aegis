@@ -3,9 +3,17 @@ import prisma from "$lib/prisma";
 import crypto from "crypto";
 import { SECRET_KEY, SECRET_IV } from '$env/static/private';
 
-export const load = (async ({ params, url }) => {
-  console.log(url.origin);
+export const load = (async ({ params, url, request }) => {
   const { slug } = params;
+
+  // check if the user agent is a bot
+  const isBot = request.headers.get('user-agent')?.includes('bot') ?? false;
+
+  if (isBot) {
+    return {
+      status: 200,
+    };
+  }
 
   const foundSecret = await prisma.secret.findFirst({
     where: {
