@@ -36,7 +36,7 @@
     "react-dom": "^18.2.0",
     "svelte": "^4.0.0",
     "svelte-check": "^3.4.3",
-    "tailwindcss": "^3.3.2",
+    "tailwindcss": "^3.4.1",
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
     "vite": "^5.0.12",
@@ -50,6 +50,11 @@
     "@libsql/client": "^0.3.6",
     "@prisma/adapter-libsql": "^5.8.1",
     "@prisma/client": "^5.8.1",
+    "bits-ui": "^0.15.1",
+    "clsx": "^2.1.0",
+    "lucide-svelte": "^0.314.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwind-variants": "^0.1.20",
     "uuid": "^9.0.0"
   }
 }
